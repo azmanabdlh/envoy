@@ -1,3 +1,9 @@
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 9090
 static_resources:
   clusters:
   - name: red
@@ -19,6 +25,14 @@ static_resources:
                 socket_address:
                   address: 0.0.0.0
                   port_value: 8083
+    health_checks:
+    - timeout: 2s
+      interval: 2s
+      healthy_threshold: 3
+      unhealthy_threshold: 3
+      http_health_check:        
+        path: "/health.php"
+        codec_client_type: HTTP1  
   listeners:
     - address:
         socket_address:
